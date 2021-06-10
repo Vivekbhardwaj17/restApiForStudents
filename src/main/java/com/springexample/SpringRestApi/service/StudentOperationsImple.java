@@ -23,8 +23,13 @@ public class StudentOperationsImple implements studentoperations{
     }
 
     @Override
-    public List<Student> getByDepartment() {
-        return null;
+    public List<Student> getByDepartment( String departmentId) {
+        List<Student> dept = new ArrayList<>();
+        for(Student s:list){
+            if(s.getDepartment().equalsIgnoreCase(departmentId))
+                dept.add(s);
+        }
+        return dept;
     }
 
     @Override
@@ -34,5 +39,30 @@ public class StudentOperationsImple implements studentoperations{
                 return student;
         }
         return null;
+    }
+
+    @Override
+    public Student addStudent(Student student) {
+        list.add(student);
+        return student;
+    }
+
+    @Override
+    public Student updateStudent(Student student) {
+        for(Student s:list)
+            if(s.getStudentId()==student.getStudentId()){
+                s.setCourse(student.getCourse());
+                s.setDepartment(student.getDepartment());
+            }
+        return student;
+    }
+
+    @Override
+    public List<Student> removeStudent(Long studentId) {
+        for(Student s:list)
+            if(s.getStudentId()==studentId) {
+            list.remove(s);
+            }
+        return list;
     }
 }
